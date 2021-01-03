@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Product} from "../product/product";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-overview',
@@ -7,13 +9,60 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OverviewComponent implements OnInit {
 
-  products = [1,2,3,4,5,7,8,9,0,11,12,13,14,15,16,17,18,19,20];
+  products: Product[] = [
+    {
+      id: 1,
+      name: 'apple',
+      description: 'red apple',
+      price: 1.00,
+      discount: 10,
+    },
+    {
+      id: 2,
+      name: 'apple',
+      description: 'green apple',
+      price: 1.00,
+      discount: 10,
+    },
+    {
+      id: 3,
+      name: 'apple',
+      description: 'yellow apple',
+      price: 1.00,
+      discount: 10,
+    },
+    {
+      id: 3,
+      name: 'apple',
+      description: 'yellow apple',
+      price: 1.00,
+      discount: 10,
+    },
+    {
+      id: 3,
+      name: 'apple',
+      description: 'yellow apple',
+      price: 1.00,
+      discount: 10,
+    },
+    {
+      id: 3,
+      name: 'apple',
+      description: 'yellow apple',
+      price: 1.00,
+      discount: 10,
+    }
+  ];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
 
 
   ngOnInit(): void {
+  }
+
+  async navigateToShoppingCart(): Promise<void> {
+    await this.router.navigate(['/shopping-cart'])
   }
 
 }
