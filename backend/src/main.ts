@@ -6,6 +6,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: new WebshopLogger()
   });
+
+  app.enableCors({
+    origin: "*",
+  });
+
   await app.listen(3000);
 }
 
