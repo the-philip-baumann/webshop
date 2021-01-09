@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {Product} from "../product/product";
+import {Product} from "../services/product";
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment";
+import {ProductService} from "../services/product.service";
+import {ShoppingCartService} from "../services/shopping-cart.service";
 
 @Component({
   selector: 'app-product-detail',
@@ -12,13 +16,15 @@ export class ProductDetailComponent implements OnInit {
   id: number;
   product: Product;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, private productService: ProductService, private shoppingCartService: ShoppingCartService) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.id = this.route.snapshot.params.id;
-    console.log(this.id);
-    this.product = {id: 1, description: 'test', name: 'testName', discount: 10, price: 100};
+    this.product = await this.productService.getProductById(this.id);
   }
 
+  async addProduct() {
+    await this.shoppingCartService.saveProductInShoppingCart(this.product);
+  }
 }
