@@ -1,0 +1,21 @@
+<div class="col-md-6 offset-3">
+  <form (ngSubmit)="checkout()" [formGroup]="checkoutForm">
+    <div class="form-group">
+      <label for="prename">Vorname</label>
+      <input type="text" id="prename" class="form-control" formControlName="prename">
+    </div>
+    <div class="form-group">
+      <label for="lastname">Nachname</label>
+      <input type="text" id="lastname" class="form-control" formControlName="lastname">
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" class="form-control" formControlName="email">
+    </div>
+    <button class="btn btn-primary">Einkauf abschliessen</button>
+  </form>
+</div>
+
+
+
+
