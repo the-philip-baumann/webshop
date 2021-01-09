@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {ShoppingCartService} from "../services/shopping-cart.service";
 
 @Component({
   selector: 'app-shopping-cart',
@@ -7,17 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShoppingCartComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpClient, public shoppingCartService: ShoppingCartService) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.shoppingCartService.getShoppingCart();
   }
 
-  addToAmount(product): void {
+  async addToAmount(product): Promise<void> {
     product.amount--;
+    await this.shoppingCartService.updateProduct(product.id, product.amount);
   }
 
-  subtractFromAmount(product): void {
+  async subtractFromAmount(product): Promise<void> {
     product.amount++;
+    await this.shoppingCartService.updateProduct(product.id, product.amount);
   }
-
 }

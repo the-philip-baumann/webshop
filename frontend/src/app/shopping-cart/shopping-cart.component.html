@@ -10,15 +10,15 @@
       </tr>
     </thead>
     <tbody>
-    <tr>
-      <th>1</th>
-      <td>Mark</td>
+    <tr *ngFor="let product of shoppingCartService.shoppingCart">
+      <th>{{product.name}}</th>
+      <td>{{product.price / 100 * product.discount}}</td>
       <td>
-      <button (click)="addToAmount({amount: 0})">+</button>
-        Otto
-      <button (click)="subtractFromAmount({amount: 0})">-</button>
+      <button (click)="addToAmount(product)">-</button>
+        {{product.amount}}
+      <button (click)="subtractFromAmount(product)">+</button>
       </td>
-      <td>@mdo</td>
+      <td>{{product.amount * (product.price / 100 * product.discount)}}</td>
     </tr>
     </tbody>
   </table>

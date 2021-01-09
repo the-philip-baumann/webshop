@@ -1,10 +1,11 @@
 <div class="card card-border">
-  <img class="card-img-top" src="favicon.ico" (click)="navigateToDetailPage()">
+  <img class="card-img-top img-sizing" [src]="'./../assets/images/' + product.image + '.png'" (click)="navigateToDetailPage()">
   <div class="card-body">
     <h5 class="card-title"></h5>
     <p class="card-text">
-      This is the product description.
+      {{product.description}}
     </p>
-    <input type="button" class="btn btn-primary" value="1.99">
+    <input type="button" class="btn btn-primary" [value]="product.price / 100 * product.discount" (click)="addProductToShoppingCart()">
+    <small class="cross-through">{{product.price}}</small>
   </div>
 </div>
