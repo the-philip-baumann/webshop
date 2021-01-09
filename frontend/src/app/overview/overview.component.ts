@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Product} from "../product/product";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../environments/environment";
+import {ProductService} from "../services/product.service";
 
 @Component({
   selector: 'app-overview',
@@ -11,16 +10,11 @@ import {environment} from "../../environments/environment";
 })
 export class OverviewComponent implements OnInit {
 
-  products: Product[];
-
-
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(private router: Router, private http: HttpClient, public productService: ProductService) {
   }
 
-
-
   async ngOnInit(): Promise<void> {
-    this.products = await this.http.get<Product[]>(environment.host + 'product/all').toPromise();
+    await this.productService.getAllProducts()
   }
 
   async navigateToShoppingCart(): Promise<void> {

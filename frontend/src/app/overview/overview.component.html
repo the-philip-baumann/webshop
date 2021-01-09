@@ -1,8 +1,5 @@
-<div class="shopping-cart">
-  <input type="button" class="btn btn-primary position-top-right" value="shopping cart" (click)="navigateToShoppingCart()">
-</div>
 <div class="product-container">
-  <div *ngFor="let product of products" class="card-container">
+  <div *ngFor="let product of productService.products" class="card-container">
     <app-product [product]="product"></app-product>
   </div>
 </div>
