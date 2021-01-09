@@ -1,56 +1,23 @@
-import {Controller, Get} from "@nestjs/common";
+import {Body, Controller, Get, Param} from "@nestjs/common";
 import {Product} from "./product";
+import {ProductService} from "../../domain/product.service";
 
 @Controller('product')
 export class ProductController {
 
-    @Get('/all')
-    public getAllProducts(): Product[] {
-        return this.products;
+    constructor(private productService: ProductService) {
     }
 
-    products: Product[] = [
-        {
-            id: 1,
-            name: 'apple',
-            description: 'red apple',
-            price: 1.00,
-            discount: 10,
-        },
-        {
-            id: 2,
-            name: 'apple',
-            description: 'green apple',
-            price: 1.00,
-            discount: 10,
-        },
-        {
-            id: 3,
-            name: 'apple',
-            description: 'yellow apple',
-            price: 1.00,
-            discount: 10,
-        },
-        {
-            id: 4,
-            name: 'apple',
-            description: 'yellow apple',
-            price: 1.00,
-            discount: 10,
-        },
-        {
-            id: 5,
-            name: 'apple',
-            description: 'yellow apple',
-            price: 1.00,
-            discount: 10,
-        },
-        {
-            id: 6,
-            name: 'apple',
-            description: 'yellow apple',
-            price: 1.00,
-            discount: 10,
-        }
-    ];
+    @Get('/all')
+    public getAllProducts(): Product[] {
+        return this.productService.products;
+    }
+
+    @Get('/:id')
+    public getProductById(@Param('id') id: number): Product {
+        console.log(id);
+        return this.productService.products.find((product) => {
+            return product.id == id;
+        })
+    }
 }
