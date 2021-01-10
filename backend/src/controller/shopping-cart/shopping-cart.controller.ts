@@ -15,6 +15,7 @@ export class ShoppingCartController {
 
     @Post('/add/:id')
     public async addItem(@Param('id') id: number, @Session() session: Record<string, any>): Promise<void> {
+        console.log(session.id);
         const product: Product = this.productService.products.find((item) => {
             return item.id == id;
         })
@@ -23,10 +24,9 @@ export class ShoppingCartController {
             return item.sessionId == session.id;
         });
 
-        console.log(shoppingCart);
 
         if (!shoppingCart) {
-            console.log('tests');
+
             shoppingCart = {
                 products: [],
                 sessionId: session.id
@@ -46,8 +46,6 @@ export class ShoppingCartController {
                 return item.id == id;
             });
 
-            console.log(product);
-
             if (shoppingCartProduct) {
                 shoppingCartProduct.amount++;
             }
@@ -64,7 +62,9 @@ export class ShoppingCartController {
                 })
             }
         }
-        console.log(this.shoppingCartService.shoppingCart);
+
+        console.log(shoppingCart.products);
+
     }
 
     @Put('/product/amount/update')
@@ -81,7 +81,6 @@ export class ShoppingCartController {
             product.amount = body.amount;
         }
 
-        console.log(this.shoppingCartService.shoppingCart);
     }
 
     @Get('/products')

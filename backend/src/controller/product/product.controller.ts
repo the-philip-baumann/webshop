@@ -19,7 +19,6 @@ export class ProductController {
             console.log('User visited site for the first time');
         }
 
-        console.log(session);
         console.log(session.id);
 
         return this.productService.products;
@@ -27,7 +26,6 @@ export class ProductController {
 
     @Get('/:id')
     public getProductById(@Param('id') id: number): Product {
-        console.log(id);
         return this.productService.products.find((product) => {
             return product.id == id;
         })

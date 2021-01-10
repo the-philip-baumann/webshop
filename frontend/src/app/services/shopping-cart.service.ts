@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ShoppingCartProduct} from "./shopping-cart-product";
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
@@ -17,27 +17,35 @@ export class ShoppingCartService {
   }
 
   async getShoppingCart() {
-    this.shoppingCart = await this.http.get<ShoppingCartProduct[]>(environment.host + 'shopping-cart/products').toPromise();
+    this.shoppingCart = await this.http.get<ShoppingCartProduct[]>(environment.host + 'shopping-cart/products', {
+      withCredentials: true
+    }).toPromise();
+    this.updatePricing();
   }
 
   public async saveProductInShoppingCart(product: Product): Promise<void> {
-    await this.http.post(environment.host + 'shopping-cart/add/' + product.id, {}).toPromise();
+    await this.http.post(environment.host + 'shopping-cart/add/' + product.id, {}, {
+      withCredentials: true
+    }).toPromise();
     await this.getShoppingCart();
     this.updatePricing();
   }
 
   async updateProduct(id, amount): Promise<void> {
     await this.http.put(environment.host + 'shopping-cart/product/amount/update', {
-      id,
-      amount
-    }).toPromise();
+        id,
+        amount
+      },
+      {
+        withCredentials: true
+      }).toPromise();
     await this.getShoppingCart();
     this.updatePricing();
   }
 
   public updatePricing() {
     this.price = 0;
-    for (let product of this.shoppingCart) {
+    for (const product of this.shoppingCart) {
       this.price += product.price * product.amount;
     }
   }

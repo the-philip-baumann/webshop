@@ -18,6 +18,10 @@ async function bootstrap() {
         secret: 'ThisShouldBeAVerySecretiveSecretButItIsnt',
         resave: false,
         saveUninitialized: false,
+        name: 'm133-webshop-session',
+        cookie: {
+            maxAge: 36000000
+        }
       }),
   );
 
