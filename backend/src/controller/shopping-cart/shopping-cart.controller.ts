@@ -1,35 +1,38 @@
-import {Body, Controller, Get, Param, Post, Put} from "@nestjs/common";
+import {Body, Controller, Get, Param, Post, Put, Session} from "@nestjs/common";
 import {ShoppingCartService} from "../../domain/shopping-cart.service";
 import {ProductService} from "../../domain/product.service";
 import {Product} from "../product/product";
 import {ShoppingCartProduct} from "./shopping-cart-product";
 import {ShoppingCartProductUpdate} from "./shopping-cart-product-update";
+import {ShoppingCart} from "./shopping-cart";
 
 @Controller('shopping-cart')
 export class ShoppingCartController {
-
 
 
     constructor(private shoppingCartService: ShoppingCartService, private productService: ProductService) {
     }
 
     @Post('/add/:id')
-    public async addItem(@Param('id') id: number): Promise<void> {
+    public async addItem(@Param('id') id: number, @Session() session: Record<string, any>): Promise<void> {
         const product: Product = this.productService.products.find((item) => {
-            console.log(item.id, '==', id);
             return item.id == id;
         })
 
-        const shoppingCartProduct: ShoppingCartProduct = this.shoppingCartService.shoppingCart.find((item) => {
-           return item.id == id;
+        let shoppingCart: ShoppingCart = this.shoppingCartService.shoppingCart.find((item) => {
+            return item.sessionId == session.id;
         });
 
-        if (shoppingCartProduct) {
-            shoppingCartProduct.amount++;
-        }
+        console.log(shoppingCart);
 
-        if (!shoppingCartProduct) {
-            this.shoppingCartService.shoppingCart.push({
+        if (!shoppingCart) {
+            console.log('tests');
+            shoppingCart = {
+                products: [],
+                sessionId: session.id
+            }
+            this.shoppingCartService.shoppingCart.push(shoppingCart);
+            shoppingCart.products.push({
                 id: product.id,
                 name: product.name,
                 description: product.description,
@@ -38,13 +41,39 @@ export class ShoppingCartController {
                 image: product.image,
                 amount: 1
             })
+        } else {
+            const shoppingCartProduct: ShoppingCartProduct = shoppingCart.products.find((item) => {
+                return item.id == id;
+            });
+
+            console.log(product);
+
+            if (shoppingCartProduct) {
+                shoppingCartProduct.amount++;
+            }
+
+            if (!shoppingCartProduct) {
+                shoppingCart.products.push({
+                    id: product.id,
+                    name: product.name,
+                    description: product.description,
+                    price: product.price,
+                    discount: product.discount,
+                    image: product.image,
+                    amount: 1
+                })
+            }
         }
         console.log(this.shoppingCartService.shoppingCart);
     }
 
     @Put('/product/amount/update')
-    public updateAmountOfProduct(@Body() body: ShoppingCartProductUpdate): void {
-        const product = this.shoppingCartService.shoppingCart.find((item) => {
+    public updateAmountOfProduct(@Body() body: ShoppingCartProductUpdate, @Session() session: Record<string, any>): void {
+        const shoppingCart = this.shoppingCartService.shoppingCart.find((item) => {
+            return item.sessionId == session.id;
+        });
+
+        const product = shoppingCart.products.find((item) => {
             return item.id == body.id;
         });
 
@@ -56,9 +85,20 @@ export class ShoppingCartController {
     }
 
     @Get('/products')
-    public getShoppingCartProducts(): ShoppingCartProduct[] {
-        console.log(this.shoppingCartService.shoppingCart);
-        return this.shoppingCartService.shoppingCart;
+    public getShoppingCartProducts(@Session() session: Record<string, any>): ShoppingCartProduct[] {
+        let shoppingCart: ShoppingCart = this.shoppingCartService.shoppingCart.find((item) => {
+            return item.sessionId == session.id;
+        });
+
+        if (!shoppingCart) {
+            shoppingCart = {
+                sessionId: session.id,
+                products: []
+            }
+            this.shoppingCartService.shoppingCart.push(shoppingCart);
+        }
+
+        return shoppingCart.products;
     }
 
 

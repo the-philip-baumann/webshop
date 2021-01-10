@@ -1,5 +1,6 @@
-import {ShoppingCartProduct} from "../controller/shopping-cart/shopping-cart-product";
+import {ShoppingCart} from "../controller/shopping-cart/shopping-cart";
 
 export class ShoppingCartService {
-    shoppingCart: ShoppingCartProduct[] = [];
+    shoppingCart: ShoppingCart[] = [];
+
 }

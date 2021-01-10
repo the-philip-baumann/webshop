@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Param} from "@nestjs/common";
+import {Body, Controller, Get, Param, Session} from "@nestjs/common";
 import {Product} from "./product";
 import {ProductService} from "../../domain/product.service";
 
@@ -9,7 +9,19 @@ export class ProductController {
     }
 
     @Get('/all')
-    public getAllProducts(): Product[] {
+    public getAllProducts(@Session() session: Record<string, any>): Product[] {
+
+        if (session.visits) {
+            session.visits++;
+            console.log('User visited site ' + session.visits + ' times');
+        } else {
+            session.visits = 1;
+            console.log('User visited site for the first time');
+        }
+
+        console.log(session);
+        console.log(session.id);
+
         return this.productService.products;
     }
 

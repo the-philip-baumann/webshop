@@ -12,9 +12,9 @@ export class CheckoutComponent implements OnInit {
 
   constructor() {
     this.checkoutForm = new FormGroup({
-      prename: new FormControl('', [Validators.min(3), Validators.max(15)]),
-      lastname: new FormControl('', [Validators.min(3), Validators.max(15)]),
-      email: new FormControl('', [Validators.email])
+      prename: new FormControl('', [Validators.required]),
+      lastname: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.email, Validators.required])
     })
   }
 
