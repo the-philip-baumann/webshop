@@ -1,3 +1,5 @@
 <app-header></app-header>
+<div class="mini-shopping-cart col-md-6">
+  <button class="btn btn-success" routerLink="/shopping-cart">Shopping-Cart({{shoppingCartService.amountOfItems}} - [{{shoppingCartService.price | currency:'CHF '}}])</button>
+</div>
 <router-outlet></router-outlet>
-<app-footer></app-footer>

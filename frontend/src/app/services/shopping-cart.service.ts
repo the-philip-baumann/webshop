@@ -10,6 +10,7 @@ import {Product} from "./product";
 export class ShoppingCartService {
 
   price: number = 0;
+  amountOfItems = 0;
   shoppingCart: ShoppingCartProduct[];
 
   constructor(private http: HttpClient) {
@@ -29,6 +30,7 @@ export class ShoppingCartService {
     }).toPromise();
     await this.getShoppingCart();
     this.updatePricing();
+
   }
 
   async updateProduct(id, amount): Promise<void> {
@@ -45,8 +47,19 @@ export class ShoppingCartService {
 
   public updatePricing() {
     this.price = 0;
+    this.amountOfItems = 0;
     for (const product of this.shoppingCart) {
-      this.price += product.price * product.amount;
+      this.price += (product.price * product.discount / 100) * product.amount;
+      this.amountOfItems += product.amount;
     }
+  }
+
+  async deleteProduct(id: number) {
+    const shoppingCart:ShoppingCartProduct  = this.shoppingCart.find((item) => {
+      return item.id = id;
+    })
+    const index = this.shoppingCart.indexOf(shoppingCart);
+    this.shoppingCart.slice(index, 1);
+    await this.http.delete(environment.host + 'shopping-cart/delete/' + id).toPromise();
   }
 }

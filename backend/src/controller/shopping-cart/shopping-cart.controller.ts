@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Param, Post, Put, Session} from "@nestjs/common";
+import {Body, Controller, Delete, Get, Param, Post, Put, Session} from "@nestjs/common";
 import {ShoppingCartService} from "../../domain/shopping-cart.service";
 import {ProductService} from "../../domain/product.service";
 import {Product} from "../product/product";
@@ -98,6 +98,24 @@ export class ShoppingCartController {
         }
 
         return shoppingCart.products;
+    }
+
+    @Delete('/delete/:id')
+    public deleteProductFromShoppingCart(@Session() session: Record<string, any>, @Param('id') id: number) {
+        console.log(id);
+        const shoppingCart: ShoppingCart = this.shoppingCartService.shoppingCart.find((item) => {
+            console.log(item.sessionId, '==', session.id);
+            return item.sessionId == session.id;
+        });
+        console.log(shoppingCart);
+        if (shoppingCart) {
+            const product = shoppingCart.products.find((item) => {
+                return item.id = id;
+            });
+            const index: number = shoppingCart.products.indexOf(product);
+            this.shoppingCartService.shoppingCart.slice(index, 1);
+        }
+        console.log('Delete: ', shoppingCart.products);
     }
 
 

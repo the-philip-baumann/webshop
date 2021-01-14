@@ -18,7 +18,7 @@
         {{product.amount}}
       <button (click)="subtractFromAmount(product)">+</button>
       </td>
-      <td>{{product.amount * (product.price / 100 * product.discount)}}</td>
+      <td>{{product.amount * (product.price / 100 * product.discount) | currency:'CHF '}}</td>
     </tr>
     </tbody>
   </table>

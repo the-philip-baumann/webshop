@@ -17,7 +17,12 @@ export class ShoppingCartComponent implements OnInit {
 
   async addToAmount(product): Promise<void> {
     product.amount--;
-    await this.shoppingCartService.updateProduct(product.id, product.amount);
+    if (product.amount == 0) {
+      console.log('test');
+      await this.shoppingCartService.deleteProduct(product.id);
+    } else {
+      await this.shoppingCartService.updateProduct(product.id, product.amount);
+    }
   }
 
   async subtractFromAmount(product): Promise<void> {
