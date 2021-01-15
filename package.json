@@ -4,8 +4,8 @@
   "description": "Setup script for the webshop",
   "main": "index.js",
   "scripts": {
-    "backend": "cd backend && npm run start && cd .. ",
-    "frontend": "cd frontend && ng serve && cd .."
+    "backend": "cd backend && npm install && npm run start && cd .. ",
+    "frontend": "cd frontend && npm install && ng serve && cd .."
   },
   "repository": {
     "type": "git",
