@@ -3,8 +3,10 @@
   <div class="card-body">
     <h5 class="card-title"></h5>
     <div class="price">
-      <p>{{(product.price * product.discount ) / 100}}</p>
-      <small class="cross-through">{{product.price}}</small>
+      <div class="centralized">
+        <p><b>{{product.price - (product.price / 100 * product.discount) | currency: 'CHF '}}</b></p>
+        <small class="cross-through">{{product.price | currency: 'CHF '}}</small>
+      </div>
     </div>
   </div>
 </div>

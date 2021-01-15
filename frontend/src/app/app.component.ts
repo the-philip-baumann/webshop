@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {ShoppingCartService} from "./services/shopping-cart.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import {ShoppingCartService} from "./services/shopping-cart.service";
 export class AppComponent {
   title = 'frontend';
 
-  constructor(public shoppingCartService: ShoppingCartService) {
+  constructor(public shoppingCartService: ShoppingCartService, public router: Router) {
 
   }
 }

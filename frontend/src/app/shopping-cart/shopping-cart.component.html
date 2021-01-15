@@ -1,25 +1,26 @@
-<div class="col-md-6 offset-3">
+<div class="col-md-10 offset-1">
   <h2>Shopping Cart</h2>
   <table class="table">
     <thead>
-      <tr>
-        <th>Product</th>
-        <th>Price per unit</th>
-        <th>Amount</th>
-        <th>Total</th>
-      </tr>
+    <tr>
+      <th>Product</th>
+      <th>Price per unit</th>
+      <th>Amount</th>
+      <th>Total</th>
+    </tr>
     </thead>
     <tbody>
     <tr *ngFor="let product of shoppingCartService.shoppingCart">
       <th>{{product.name}}</th>
-      <td>{{product.price / 100 * product.discount}}</td>
+      <td>{{product.price - (product.price / 100 * product.discount) | currency: 'CHF '}}</td>
       <td>
-      <button (click)="addToAmount(product)">-</button>
+        <button (click)="addToAmount(product)">-</button>
         {{product.amount}}
-      <button (click)="subtractFromAmount(product)">+</button>
+        <button (click)="subtractFromAmount(product)">+</button>
       </td>
-      <td>{{product.amount * (product.price / 100 * product.discount) | currency:'CHF '}}</td>
+      <td>{{product.amount * (product.price - (product.price / 100 * product.discount)) | currency:'CHF '}}</td>
     </tr>
     </tbody>
   </table>
+  <input type="button" class="btn btn-success" routerLink="/checkout" [value]="'Checkout: ' + (this.shoppingCartService.price | currency:'CHF ')" [disabled]="shoppingCartService.price == 0">
 </div>

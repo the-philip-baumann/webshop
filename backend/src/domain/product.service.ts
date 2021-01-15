@@ -6,15 +6,15 @@ export class ProductService {
             id: 1,
             name: 'Apple',
             description: 'This is a very delicate apple from one of our local farmers.',
-            price: 1.50,
-            discount: 0,
+            price: 3,
+            discount: 20,
             image: 'apple'
         },
         {
             id: 2,
             name: 'Pear',
             description: 'A very healthy fruit grown in southern spain and important within the last 48 hours.',
-            price: 1.25,
+            price: 2,
             discount: 10,
             image: 'pear'
         },
@@ -22,7 +22,7 @@ export class ProductService {
             id: 3,
             name: 'Grapes',
             description: 'Lovely self grown grapes. With beautiful colour and stunning taste.',
-            price: 2.40,
+            price: 10,
             discount: 20,
             image: 'grapes'
         },
@@ -38,7 +38,7 @@ export class ProductService {
             id: 5,
             name: 'orange',
             description: 'Very healthy and especially good for your lungs',
-            price: 1.80,
+            price: 1,
             discount: 50,
             image: 'orange'
         },
@@ -46,8 +46,8 @@ export class ProductService {
             id: 6,
             name: 'Banana',
             description: 'Perfectl sizing and ideal for a lovely dessert',
-            price: 1.80,
-            discount: 30,
+            price: 8.00,
+            discount: 50,
             image: 'banana'
         }
     ];

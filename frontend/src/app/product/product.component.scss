@@ -9,15 +9,22 @@
 }
 
 .img-sizing {
-  height: 200px;
+  height: 300px;
 }
 
 div.card {
   width: 100%;
-  height: 300px;
+  height: 400px;
 }
 
 .price {
   display: flex;
+  text-align: center;
+
+}
+
+.centralized {
+  text-align: center;
+  margin-left: 40%;
 }
 

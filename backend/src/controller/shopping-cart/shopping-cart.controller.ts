@@ -69,6 +69,7 @@ export class ShoppingCartController {
 
     @Put('/product/amount/update')
     public updateAmountOfProduct(@Body() body: ShoppingCartProductUpdate, @Session() session: Record<string, any>): void {
+        console.log(session.id)
         const shoppingCart = this.shoppingCartService.shoppingCart.find((item) => {
             return item.sessionId == session.id;
         });
@@ -101,22 +102,21 @@ export class ShoppingCartController {
     }
 
     @Delete('/delete/:id')
-    public deleteProductFromShoppingCart(@Session() session: Record<string, any>, @Param('id') id: number) {
-        console.log(id);
+    public deleteProductFromShoppingCart(@Session() session: Record<string, any>, @Param('id') id: number): void {
         const shoppingCart: ShoppingCart = this.shoppingCartService.shoppingCart.find((item) => {
-            console.log(item.sessionId, '==', session.id);
             return item.sessionId == session.id;
         });
-        console.log(shoppingCart);
         if (shoppingCart) {
             const product = shoppingCart.products.find((item) => {
                 return item.id = id;
             });
-            const index: number = shoppingCart.products.indexOf(product);
-            this.shoppingCartService.shoppingCart.slice(index, 1);
-        }
-        console.log('Delete: ', shoppingCart.products);
-    }
+            console.log(product);
+            const index: number = shoppingCart.products.indexOf(product, 0);
+            console.log(index);
+            shoppingCart.products.splice(index, 1);
 
+            console.log('Delete: ', shoppingCart.products);
+        }
+    }
 
 }

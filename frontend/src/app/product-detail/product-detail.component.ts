@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Product} from "../services/product";
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../environments/environment";
 import {ProductService} from "../services/product.service";
 import {ShoppingCartService} from "../services/shopping-cart.service";
 
@@ -14,7 +13,14 @@ import {ShoppingCartService} from "../services/shopping-cart.service";
 export class ProductDetailComponent implements OnInit {
 
   id: number;
-  product: Product;
+  product: Product = {
+    id: 0,
+    name: '',
+    image: 'placeholder',
+    description: '',
+    discount: 0,
+    price: 0,
+  };
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private productService: ProductService, private shoppingCartService: ShoppingCartService) {
   }

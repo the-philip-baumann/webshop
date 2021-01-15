@@ -1,0 +1,20 @@
+{
+  "name": "webshop",
+  "version": "1.0.0",
+  "description": "Setup script for the webshop",
+  "main": "index.js",
+  "scripts": {
+    "backend": "cd backend && npm run start && cd .. ",
+    "frontend": "cd frontend && ng serve && cd .."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/the-philip-baumann/webshop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/the-philip-baumann/webshop/issues"
+  },
+  "homepage": "https://github.com/the-philip-baumann/webshop#readme"
+}

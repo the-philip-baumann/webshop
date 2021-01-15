@@ -11,6 +11,8 @@ export class ProductController {
     @Get('/all')
     public getAllProducts(@Session() session: Record<string, any>): Product[] {
 
+        console.log(session.id)
+
         if (session.visits) {
             session.visits++;
             console.log('User visited site ' + session.visits + ' times');
@@ -18,8 +20,6 @@ export class ProductController {
             session.visits = 1;
             console.log('User visited site for the first time');
         }
-
-        console.log(session.id);
 
         return this.productService.products;
     }
